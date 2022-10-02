@@ -1,2 +1,2 @@
 ### UML-діаграма концептуальних класів
-![UMLConceptClasses](https://user-images.githubusercontent.com/79446249/193445593-0a35a02d-4181-4352-9734-9840af8eb087.jpg)
+![UMLConceptClasses](https://user-images.githubusercontent.com/79446249/193450332-b1e845a7-45d2-47b8-9cbb-76452edafcec.jpg)
