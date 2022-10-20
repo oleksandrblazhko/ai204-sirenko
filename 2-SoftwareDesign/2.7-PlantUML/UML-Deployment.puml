@@ -13,9 +13,11 @@ node "<<Настільний комп'ютер>>" as comp {
 	}
 }
 
-interface "Сенсорний екран"
+interface "Миша"
+interface "Клавіатура"
 
-(Сенсорний екран) -- comp
+(Миша) -- comp
+(Клавіатура) -- comp
 
 node "<<Server #1>>" as serv1 {
 	node "<<OS Linux>>" {
