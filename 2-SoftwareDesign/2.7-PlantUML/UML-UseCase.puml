@@ -1,7 +1,6 @@
 @startuml
 title Usecase for Information system
 
-' left to right direction
 
 actor Користувач
 actor :Програма для малювання:
