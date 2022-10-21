@@ -1,0 +1,61 @@
+@startuml
+
+title Example of Relation Schema
+
+hide circle
+
+entity "User" as tu {
+    (PK) user_id
+    --
+    name
+    surname
+    email
+}
+
+
+entity "Collection" as tl {
+    (PK) collection_id
+    --
+    (FK) user_id
+    (FK) project_id
+    name
+    references 
+}
+
+entity "Project" as tul {
+    (PK) project_id
+    --
+    name
+    defails
+    keycolor
+    keywords
+}
+
+entity "Shedule" as tule {
+    (FK) user_id
+    (FK) reminder_id
+    (FK) davice_id
+}
+
+entity "Device" as tm {
+    (PK) device_id
+    --
+    name
+}
+
+entity "Reminder" as te {
+    (PK) reminder_id
+    --
+    name
+    day
+    time 
+}
+
+
+tu --{ tl
+tl -- tul
+tu --{ tule
+te --{ tule
+tm --{ tule
+
+@enduml

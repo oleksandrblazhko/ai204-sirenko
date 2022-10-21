@@ -1,0 +1,14 @@
+@startuml
+title Classes Diagram
+
+Class User
+Class Shedule
+Class Collection
+Class Project
+Class Reminder
+
+User"1" -up-> "*"Shedule : make
+User"1" -up-> "*"Collection : has
+Project"*" --o "*"Collection : contains
+Reminder"*" --o "*"Shedule : contains
+@enduml

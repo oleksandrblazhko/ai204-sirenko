@@ -1,0 +1,21 @@
+@startuml
+
+title Activity Diagram of Literature.publish() method
+
+start
+
+:The program start analyzing project; 
+
+if (Project has correct files?) then (yes)
+    if (Project has keywords) then (yes)
+      :Show analyzing results!;
+    else (no)
+      :Add more description to the project!;
+    endif
+else (no)
+  :System cant analyze this project;
+endif
+
+stop
+
+@enduml
