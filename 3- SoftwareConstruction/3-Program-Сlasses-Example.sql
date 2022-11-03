@@ -5,7 +5,7 @@ CREATE OR REPLACE TYPE Users AS OBJECT (
 	name VARCHAR, --ім'я
 	surname VARCHAR, --прізвище
 	email VARCHAR 
-    	NOT FINAL MEMBER PROCEDURE display
+    	MEMBER PROCEDURE display
 ); 
 
 /* Створення типу для зберігання списку користувачів - "Колекція екземплярів об`єктів класу Users */
