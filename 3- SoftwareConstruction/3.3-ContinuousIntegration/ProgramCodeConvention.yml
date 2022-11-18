@@ -1,0 +1,18 @@
+name: Program Code Linter
+on:
+  push:
+      branches: main
+
+jobs:
+  ProgramCodeLinter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code in Repo
+        uses: actions/checkout@v3
+        
+      - name: Lint Program Code
+        uses: github/super-linter@v4
+        env:
+          VALIDATE_JAVA: true
+          FILTER_REGEX_INCLUDE: ./*.java
+          GITHUB_TOKEN: ${{secrets.TOKEN}}
