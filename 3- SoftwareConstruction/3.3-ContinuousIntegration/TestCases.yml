@@ -1,0 +1,25 @@
+name: Test Cases
+on:
+  push:
+    branches: main
+
+jobs:
+  TestCases:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: "actions/checkout@v3"
+      
+      - name: Compile
+        run: |
+          cd $GITHUB_WORKSPACE/
+          export CLASSPATH="./ojdbc8.jar:./"
+          javac TestCases.java
+      
+      - name: Execute
+        run: |
+          cd $GITHUB_WORKSPACE/
+          export CLASSPATH="./ojdbc8.jar:./"
+          echo "$env:LOGIN"
+          java TestCases ${{secrets.LOGIN}} ${{secrets.PASSWORD}}
+        
