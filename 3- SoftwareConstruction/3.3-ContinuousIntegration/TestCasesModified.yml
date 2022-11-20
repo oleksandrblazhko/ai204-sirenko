@@ -1,4 +1,5 @@
-name: Test Cases
+
+name: Test Cases Modified
 on:
   push:
     branches: main
@@ -14,12 +15,12 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE/
           export CLASSPATH="./ojdbc8.jar:./"
-          javac TestCases.java
+          javac TestCasesModified.java
       
       - name: Execute
         run: |
           cd $GITHUB_WORKSPACE/
           export CLASSPATH="./ojdbc8.jar:./"
           echo "$env:LOGIN"
-          java TestCases ${{secrets.LOGIN}} ${{secrets.PASSWORD}}
-        
+          java TestCasesModified ${{secrets.LOGIN}} ${{secrets.PASSWORD}}
+         

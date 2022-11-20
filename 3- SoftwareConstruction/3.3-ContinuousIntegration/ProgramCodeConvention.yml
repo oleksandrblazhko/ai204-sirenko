@@ -13,6 +13,6 @@ jobs:
       - name: Lint Program Code
         uses: github/super-linter@v4
         env:
-          VALIDATE_JAVA: true
-          FILTER_REGEX_INCLUDE: ./*.java
+          VALIDATE_SQL: true
+          FILTER_REGEX_INCLUDE: ./*.sql 
           GITHUB_TOKEN: ${{secrets.TOKEN}}

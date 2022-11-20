@@ -1,83 +1,69 @@
-package com.nuop.sdt;
+import java.sql.*;
+import oracle.jdbc.driver.*;
 
-import java.util.Date;
+class TestCases {
+
+    public static void main(final String[] args) {
+        int testcaseResult = 0;
+        try{
+        DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
+        Connection con = DriverManager.getConnection(
+            "jdbc:oracle:thin:@91.219.60.189:1521/XEPDB1",
+            args[0],
+            args[1]);
+
+        CallableStatement cstmt1 = con.prepareCall("{? = call check_reminder(?,?)}");
+        cstmt1.registerOutParameter(1,Types.NUMERIC);
+        cstmt1.setString(2,"Breakfast");
+        cstmt1.setString(3,"ПН");
+        cstmt1.executeUpdate();
+        System.out.print("TC1: check_reminder('Breakfast','ПН') expect 1 - result:" + cstmt1.getInt(1));
+        if(cstmt1.getInt(1) == 1) 
+            System.out.println("Passed");
+        else{
+            System.out.println("Failed");
+            testcaseResult = -1;
+        }
 
 
-public class ReminderTest {
+        cstmt1.setString(2,"akdcsdkvfdjsvnjkfkfbjfv");
+        cstmt1.setString(3,"ПН");
+        cstmt1.executeUpdate();
+        System.out.print("TC2: check_reminder('akdcsdkvfdjsvnjkfkfbjfv','ПН') expect -1 - result:" + cstmt1.getInt(1));
+        if(cstmt1.getInt(1) == -1) 
+            System.out.println("Passed");
+        else{
+            System.out.println("Failed");
+            testcaseResult = -1;
+        }
 
-  public static boolean isReminderDayCorrect(String day) {
-      if(new String("ПН ВТ СР ЧТ ПТ СБ ВС").contains(day)){
-        return true;
+        cstmt1.setString(2,"12 Breakfast");
+        cstmt1.setString(3,"ПН");
+        cstmt1.executeUpdate();
+        System.out.print("TC3: check_reminder('12 Breakfast','ПН') expect -1 - result:" + cstmt1.getInt(1));
+        if(cstmt1.getInt(1) == -1) 
+            System.out.println("Passed");
+        else{
+            System.out.println("Failed");
+            testcaseResult = -1;}
+
+        cstmt1.setString(2,"Breakfast");
+        cstmt1.setString(3,"monday");
+        cstmt1.executeUpdate();
+        System.out.print("TC4: check_reminder('Breakfast','monday') expect -2 - result:" + cstmt1.getInt(1));
+        if(cstmt1.getInt(1) == -2) 
+            System.out.println("Passed");
+        else{
+            System.out.println("Failed");
+            testcaseResult = -1;
+        }
+
+        con.close();
       }
-      else{
-        return false;
+      catch(Exception e){
+          System.out.println(e);
       }
+        
+      System.exit(testcaseResult);
     }
-
-    public static boolean isReminderNameCorrect(String reminderName) {
-      return reminderName.matches("^([a-zA-Z]\\D*)|(\\S{18,})$");
-    }
-
-    private static Integer testReminder(Reminder reminder) {
-
-      if (!isReminderNameCorrect(reminder.getName())) {
-        return -1;
-      }
-
-      if (!isReminderDayCorrect(reminder.getDay())) {
-        return -2;
-      }
-
-      return 0;
-    }
-
-    public static void main(String[] args) {
-
-      Reminder goodReminder = new Reminder("Breakfast", "ПН");
-      int actualTestResultForFirstTest = testReminder(goodReminder);
-      System.out.println("TC1: object " + goodReminder + "  should pass check.      Expected result =  0, actual result =  " + actualTestResultForFirstTest + " || " + ((0 == actualTestResultForFirstTest)?("PASSED"):("FAILED")));
-
-      Reminder reminderWithBadName = new Reminder("12nnkkd", "ПН");
-      int actualTestResultForSecondTest = testReminder(reminderWithBadName);
-      System.out.println("TC2: object " + reminderWithBadName + " should not pass check.  Expected result = -1, actual result = " + actualTestResultForSecondTest + " || " + ((-1 == actualTestResultForSecondTest)?("PASSED"):("FAILED")));
-
-      Reminder reminderWithBadDay = new Reminder("Diner", "Mon");
-      int actualTestResultForThirdTest = testReminder(reminderWithBadDay);
-      System.out.println("TC3: object " + reminderWithBadDay + "  should not pass check.  Expected result = -2, actual result = " + actualTestResultForThirdTest + " || " + ((-2 == actualTestResultForThirdTest)?("PASSED"):("FAILED")));
-
-      if (0 != actualTestResultForFirstTest || -1 != actualTestResultForSecondTest || -2 != actualTestResultForThirdTest) {
-        System.exit(-1);
-      }
-
-    }
-  }
-
-  class Reminder {
-
-    private Long id;
-    private String name;
-    private String day;
-    public Date time;
-
-
-    public Reminder(String name, String day) {
-      this.name = name;
-      this.day = day;
-    }
-
-    public String getName() {
-      return name;
-    }
-
-    public String getDay() {
-      return day;
-    }
-
-    @Override
-    public String toString() {
-      return "Reminder{" +
-          "name='" + name + '\'' +
-          ", day='" + day + '\'' +
-          '}';
-    }
-  }
+}
