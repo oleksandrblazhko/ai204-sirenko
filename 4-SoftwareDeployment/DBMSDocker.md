@@ -4,13 +4,13 @@
 
 2) Запустити контейнер з завантаженим образом СКБД <br><br>
  (назва контейнеру --name sirenko-postgres, <br>
-  порт -p 1521,<br>
+  порт -p 5432,<br>
   пароль POSTGRES_PASSWORD=abc123,<br>
   створити  каталог з  файлами у  системі  Docker-образу -w /scripts,<br>
   встановити зв’язок між локальним каталогом комп’ютера та робочим каталогом -v $(pwd):/scripts,<br>
   запуск у фоновому режимі -d postgres)
   <br><br>
-`sudo docker run --name sirenko-postgres -p 1521:1521 -e POSTGRES_PASSWORD=abc123 -w /scripts -v $(pwd):/scripts -d postgres`
+`sudo docker run --name sirenko-postgres -p 5432:5432 -e POSTGRES_PASSWORD=abc123 -w /scripts -v $(pwd):/scripts -d postgres`
 
 3) Почати роботу з оболонкою командного рядку запущеного контейнеру<br>
 `sudo docker exec -it sirenko-postgres bash`
