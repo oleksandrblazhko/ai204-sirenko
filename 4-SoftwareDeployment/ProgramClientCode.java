@@ -10,7 +10,7 @@ public class Main {
     try {
       Class.forName("org.postgresql.Driver");
       Connection connection = DriverManager.getConnection(
-          "jdbc:postgresql://localhost:1521/sirenkodb",
+          "jdbc:postgresql://localhost:5432/sirenkodb",
           "postgres", "abc123");
 
       Statement stmt = connection.createStatement();
